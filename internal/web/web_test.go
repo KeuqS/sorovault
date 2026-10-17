@@ -142,8 +142,10 @@ func TestIndexPagination(t *testing.T) {
 		assert.Contains(t, body, "Page 2 of 2")
 		assert.Contains(t, body, "contract-100")
 		assert.NotContains(t, body, "contract-099")
-		assert.Contains(t, body, `href="/?network=testnet&page=1&q=contract"`)
-		assert.NotContains(t, body, `href="/?network=testnet&page=3&q=contract"`)
+		// Page 1 is the canonical URL, so its link carries no page parameter;
+		// the template HTML-escapes the query string's ampersands.
+		assert.Contains(t, body, `href="/?network=testnet&amp;q=contract">Previous</a>`)
+		assert.NotContains(t, body, `page=3`, "there is no third page to link to")
 	}
 }
 

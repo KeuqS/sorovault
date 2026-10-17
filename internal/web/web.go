@@ -150,10 +150,10 @@ func (s *Server) contract(w http.ResponseWriter, r *http.Request) {
 // list runs a listing query for the UI, capped to a single screenful.
 func (s *Server) list(r *http.Request, query, network string, page int) (*store.ContractPage, error) {
 	filter := store.ListFilter{
-		Query:  query,
+		Query:   query,
 		Network: network,
-		Limit:  contractsPerPage,
-		Offset: pageOffset(page),
+		Limit:   contractsPerPage,
+		Offset:  pageOffset(page),
 	}
 	filter.Normalize()
 	return s.reg.Store().ListContracts(r.Context(), filter)
